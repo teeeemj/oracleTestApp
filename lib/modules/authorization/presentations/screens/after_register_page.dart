@@ -1,9 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:testapp/core/config/routes/app_router.dart';
 import 'package:testapp/core/config/theme/app_colors.dart';
 import 'package:testapp/core/config/theme/app_fonts.dart';
 import 'package:testapp/modules/authorization/presentations/widgets/auth_buttons.dart';
 import 'package:testapp/modules/authorization/presentations/widgets/register_textfield.dart';
+import 'package:testapp/core/data/user_data.dart';
 
 @RoutePage()
 class AfterRegisterPage extends StatefulWidget {
@@ -17,6 +20,7 @@ class _AfterRegisterPageState extends State<AfterRegisterPage> {
   TextEditingController afterRegisterLoginController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final userData = Provider.of<UserData>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.backgrColor,
@@ -51,7 +55,11 @@ class _AfterRegisterPageState extends State<AfterRegisterPage> {
             const SizedBox(height: 16),
             AuthButtons(
               title: 'SIGN UP',
-              onpressed: () {},
+              onpressed: () {
+                if (afterRegisterLoginController.text == userData.username) {
+                  context.router.push(DiscoverRoute());
+                }
+              },
               backButtonColor: Colors.black,
             ),
             const SizedBox(height: 32),

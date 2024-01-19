@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:testapp/core/config/routes/app_router.dart';
 import 'package:testapp/core/config/theme/app_fonts.dart';
+import 'package:testapp/core/data/user_data.dart';
 import 'package:testapp/modules/authorization/presentations/widgets/auth_buttons.dart';
 import 'package:testapp/modules/authorization/presentations/widgets/register_textfield.dart';
 
@@ -19,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController loginPasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final userData = Provider.of<UserData>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.backgrColor,
@@ -59,7 +63,14 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 16),
             AuthButtons(
                 title: 'LOG IN',
-                onpressed: () {},
+                onpressed: () {
+                  if (loginLoginController.text == userData.username &&
+                      loginPasswordController.text == userData.password) {
+                    context.router.push(DiscoverRoute());
+                  }else {
+                    print('Invalid datas');
+                  }
+                },
                 backButtonColor: AppColors.buttonColorBlack)
           ],
         ),

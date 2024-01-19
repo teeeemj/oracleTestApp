@@ -21,6 +21,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const AfterRegisterPage(),
       );
     },
+    DiscoverRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const DiscoverPage(),
+      );
+    },
     LoginRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -52,6 +58,20 @@ class AfterRegisterRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'AfterRegisterRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [DiscoverPage]
+class DiscoverRoute extends PageRouteInfo<void> {
+  const DiscoverRoute({List<PageRouteInfo>? children})
+      : super(
+          DiscoverRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'DiscoverRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

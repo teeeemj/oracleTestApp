@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:testapp/core/config/routes/app_router.dart';
 import 'package:testapp/core/config/theme/app_colors.dart';
 import 'package:testapp/core/config/theme/app_fonts.dart';
+import 'package:testapp/core/data/user_data.dart';
 
 import '../widgets/auth_buttons.dart';
 import '../widgets/register_textfield.dart';
@@ -62,6 +64,14 @@ class _RegisterPageState extends State<RegisterPage> {
             AuthButtons(
               title: 'NEXT',
               onpressed: () {
+                //provider для обновления данных
+                UserData userData =
+                    Provider.of<UserData>(context, listen: false);
+                userData.updateUserData(
+                  registerLoginController.text,
+                  registerPasswordController.text,
+                );
+                //autorute
                 context.router.push(
                   AfterRegisterRoute(),
                 );
