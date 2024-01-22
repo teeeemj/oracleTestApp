@@ -64,10 +64,11 @@ class _LoginPageState extends State<LoginPage> {
             AuthButtons(
                 title: 'LOG IN',
                 onpressed: () {
-                  if (loginLoginController.text == userData.username &&
-                      loginPasswordController.text == userData.password) {
+                  if (userData.users.any((user) =>
+                      user['username'] == loginLoginController.text &&
+                      user['password'] == loginPasswordController.text)) {
                     context.router.push(DiscoverRoute());
-                  }else {
+                  } else {
                     print('Invalid datas');
                   }
                 },

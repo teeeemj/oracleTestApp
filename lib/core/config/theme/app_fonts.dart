@@ -21,4 +21,14 @@ abstract class AppFonts {
     fontWeight: FontWeight.w400,
     fontFamily: 'Roboto',
   );
+  static const TextStyle s13w700rob = TextStyle(
+    fontSize: 13,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Roboto',
+  );
+  static const TextStyle s11w400rob = TextStyle(
+    fontSize: 11,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Roboto',
+  );
 }

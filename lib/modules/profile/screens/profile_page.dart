@@ -1,23 +1,25 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+
 import 'package:testapp/core/config/routes/app_router.dart';
-import 'package:testapp/core/config/theme/app_colors.dart';
 import 'package:testapp/core/config/theme/app_fonts.dart';
 
-import '../widgets/discover_main_images.dart';
+import 'package:testapp/modules/authorization/presentations/widgets/start_screen_button.dart';
+
+import '../../../core/config/theme/app_colors.dart';
 
 @RoutePage()
-class DiscoverPage extends StatefulWidget {
-  const DiscoverPage({Key? key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
 
   @override
-  _DiscoverPageState createState() => _DiscoverPageState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _DiscoverPageState extends State<DiscoverPage> {
+class _ProfilePageState extends State<ProfilePage> {
   List<String> imageUrls = [];
-  int _currentIndex = 0;
+  int _currentIndex = 4;
 
   @override
   void initState() {
@@ -46,41 +48,60 @@ class _DiscoverPageState extends State<DiscoverPage> {
     }
   }
 
-  List<String> authorNames = ['Ridhwan Nordin'];
-  List<String> authorUserNames = ['@ridzjcob'];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, top: 76),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Discover',
-                style: AppFonts.s36w400rob.copyWith(
-                  color: AppColors.textColorBlack,
+              const SizedBox(height: 76),
+              const Center(
+                child: SizedBox(
+                  height: 128,
+                  width: 123,
+                  child: Image(
+                    image: AssetImage('assets/images/pngs/profile_png.png'),
+                  ),
                 ),
               ),
               const SizedBox(height: 32),
               Text(
-                'Whats new today',
-                style: AppFonts.s13w900rob.copyWith(
+                'Jane',
+                style: AppFonts.s36w400rob.copyWith(
                   color: AppColors.textColorBlack,
                 ),
               ),
-              const SizedBox(height: 24),
-              _buildDiscoverContent(),
-              const SizedBox(height: 48),
+              const SizedBox(height: 16),
               Text(
-                'Browse all',
+                'SAN FRANCISCO',
                 style: AppFonts.s13w900rob.copyWith(
                   color: AppColors.textColorBlack,
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 32),
+              StartScreenButton(
+                title: 'FOLLOW JANE',
+                onPressed: () {},
+                buttonPaddings: const EdgeInsets.symmetric(
+                  horizontal: 128,
+                  vertical: 19,
+                ),
+                btnColor: AppColors.textColorWhite,
+                bgColor: AppColors.buttonColorBlack,
+              ),
+              const SizedBox(height: 16),
+              StartScreenButton(
+                title: 'MESSAGE',
+                onPressed: () {},
+                buttonPaddings: const EdgeInsets.symmetric(
+                  horizontal: 140,
+                  vertical: 19,
+                ),
+                btnColor: AppColors.textColorBlack,
+                bgColor: AppColors.buttonColorWhite,
+              ),
               _buildGridView(),
               const SizedBox(height: 32),
               //bottomnavbar
@@ -121,84 +142,54 @@ class _DiscoverPageState extends State<DiscoverPage> {
               Icons.home,
               color: AppColors.buttonColorBlack,
             ),
-            label: '',
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.search,
               color: AppColors.buttonColorBlack,
             ),
-            label: '',
+            label: 'Search',
           ),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.add,
-                color: AppColors.buttonColorBlack,
-              ),
-              label: '',
-              backgroundColor: Color(0xffff00d6)),
+            icon: Icon(
+              Icons.add,
+              color: AppColors.buttonColorBlack,
+            ),
+            label: 'Add',
+          ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.chat_bubble,
               color: AppColors.buttonColorBlack,
             ),
-            label: '',
+            label: 'Chat',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.person,
               color: AppColors.buttonColorBlack,
             ),
-            label: '',
+            label: 'Profile',
           ),
         ],
         onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
+          if (index != _currentIndex) {
+            setState(() {
+              _currentIndex = index;
+            });
 
-          if (index == 0) {
-            context.router.push(const DiscoverRoute());
-          } else if (index == 1) {
-            context.router.push(const SearchRoute());
-          } else if (index == 2) {
-            context.router.push(const AddRoute());
-          } else if (index == 3) {
-            context.router.push(const ChatRoute());
-          } else if (index == 4) {
-            context.router.push(const ProfileRoute());
+            if (index == 0) {
+              context.router.push(const DiscoverRoute());
+            } else if (index == 1) {
+              context.router.push(const SearchRoute());
+            } else if (index == 2) {
+              context.router.push(const AddRoute());
+            } else if (index == 3) {
+              context.router.push(const ChatRoute());
+            } else if (index == 4) {}
           }
         },
-      ),
-    );
-  }
-
-  Widget _buildDiscoverContent() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          DiscoverMainImages(
-            image: const AssetImage('assets/images/pngs/discover_1.png'),
-            mySvg: 'assets/images/svgs/component_1.svg',
-          ),
-          const SizedBox(width: 16),
-          DiscoverMainImages(
-            image: const AssetImage('assets/images/pngs/discover_2.png'),
-            mySvg: 'assets/images/svgs/component_2.svg',
-          ),
-          const SizedBox(width: 16),
-          DiscoverMainImages(
-            image: const AssetImage('assets/images/pngs/discover_3.png'),
-            mySvg: 'assets/images/svgs/component_3.svg',
-          ),
-          const SizedBox(width: 16),
-          DiscoverMainImages(
-            image: const AssetImage('assets/images/pngs/discover_4.png'),
-            mySvg: 'assets/images/svgs/component_4.svg',
-          ),
-        ],
       ),
     );
   }

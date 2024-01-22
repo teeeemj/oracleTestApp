@@ -56,9 +56,7 @@ class _AfterRegisterPageState extends State<AfterRegisterPage> {
             AuthButtons(
               title: 'SIGN UP',
               onpressed: () {
-                if (afterRegisterLoginController.text == userData.username) {
-                  context.router.push(DiscoverRoute());
-                }
+                context.router.push(DiscoverRoute());
               },
               backButtonColor: Colors.black,
             ),
